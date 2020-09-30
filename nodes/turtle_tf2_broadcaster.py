@@ -29,13 +29,12 @@ def handle_turtle_pose(msg, turtlename):
     br.sendTransform(t)
 
 def handler(req):
-    print('waka waka')
+
     turtlename = rospy.get_param('~turtle')
     rospy.Subscriber('/%s/pose' % turtlename,
                         turtlesim.msg.Pose,
                         handle_turtle_pose,
                         turtlename)
-    print('wosel wosel')
 
     return  []
     
@@ -44,9 +43,9 @@ if __name__ == '__main__':
 
    
     rospy.init_node('tf2_turtle_broadcaster')
-    print('coba')
-    server = rospy.Service('start_turtlesim_snake', Empty, handler)
-    print('bunga')
+
+    server = rospy.Service('start_turtlesim_snake', Empty, handler, )
+
     rospy.spin()
     
     
