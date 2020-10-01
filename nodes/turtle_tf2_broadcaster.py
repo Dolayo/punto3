@@ -7,7 +7,6 @@ import tf_conversions
 import tf2_ros
 import geometry_msgs.msg
 import turtlesim.msg
-from std_srvs.srv import Empty
 
 
 def handle_turtle_pose(msg, turtlename):
@@ -28,24 +27,13 @@ def handle_turtle_pose(msg, turtlename):
 
     br.sendTransform(t)
 
-def handler(req):
-
+if __name__ == '__main__':
+    rospy.init_node('tf2_turtle_broadcaster')
     turtlename = rospy.get_param('~turtle')
     rospy.Subscriber('/%s/pose' % turtlename,
-                        turtlesim.msg.Pose,
-                        handle_turtle_pose,
-                        turtlename)
-
-    return  []
-    
-
-if __name__ == '__main__':
-
-   
-    rospy.init_node('tf2_turtle_broadcaster')
-
-    server = rospy.Service('start_turtlesim_snake', Empty, handler, )
-
+                     turtlesim.msg.Pose,
+                     handle_turtle_pose,
+                     turtlename)
     rospy.spin()
     
     
